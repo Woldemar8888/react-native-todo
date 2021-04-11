@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, TextInput, Button, Alert} from 'react-native';
+import { View, StyleSheet, TextInput, Alert, Keyboard} from 'react-native';
 import {THEME} from '../theme';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export const AddTodo = ({onSubmit}) =>{
     const [value, setValue] = useState('');
@@ -8,6 +9,7 @@ export const AddTodo = ({onSubmit}) =>{
         if(value.trim()){
             onSubmit(value);
             setValue('');
+            Keyboard.dismiss();
         }else{
             Alert.alert('Дело не может быть пустым');
         }
@@ -21,11 +23,10 @@ export const AddTodo = ({onSubmit}) =>{
                value={value}
                placeholder = 'Название дела...'
            />
-           <Button
-               style={styles.button}
-               title="Добавить"
+           <MaterialIcons.Button
                onPress={pressHandler}
-           />
+               name = "add"
+           >Добавить</MaterialIcons.Button>
         </View>
     )
 }
@@ -39,13 +40,10 @@ const styles = StyleSheet.create({
 
     },
     input:{
-        width: '70%',
+        width: '60%',
         borderStyle: 'solid',
         borderBottomWidth: 2,
         borderBottomColor: THEME.MAIN_COLOR,
         padding: 5
-    },
-    button:{
-
     }
 })
